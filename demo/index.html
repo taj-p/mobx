@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>MobX Squares</title>
+        <style>
+            #square-container {
+                position: relative;
+                width: 100%;
+                height: 90vh;
+            }
+
+            .square {
+                position: absolute;
+                width: 50px;
+                height: 50px;
+                background-color: blue;
+            }
+
+            #debug-panel {
+                position: fixed;
+                top: 0;
+                right: 0;
+                background: lightgray;
+                padding: 10px;
+            }
+
+            .iframe {
+                width: 100%;
+                height: 45vh;
+                border: none;
+            }
+        </style>
+    </head>
+
+    <body>
+        <iframe
+            class="iframe"
+            sandbox="allow-scripts"
+            id="iframe-container-fork"
+            src="index-fork.html"
+        ></iframe>
+        <iframe
+            class="iframe"
+            sandbox="allow-scripts"
+            id="iframe-container-not-fork"
+            src="index-not-fork.html"
+        ></iframe>
+
+        <div id="debug-panel">
+            <button id="add-square">Add Square</button>
+            <input
+                type="number"
+                id="computed-latency"
+                placeholder="Computed Latency (ms)"
+                value="1000"
+            />
+            <button id="clear">Clear</button>
+        </div>
+
+        <script src="https://unpkg.com/mobx@6/dist/mobx.umd.production.min.js"></script>
+        <script src="index.js"></script>
+    </body>
+</html>
