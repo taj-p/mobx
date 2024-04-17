@@ -13,6 +13,7 @@ import {
     startBatch,
     Lambda
 } from "../internal"
+import { globalObjectRegistry } from "./measure"
 
 export const $mobx = Symbol("mobx administration")
 
@@ -33,7 +34,9 @@ export class Atom implements IAtom {
      * Create a new atom. For debugging purposes it is recommended to give it a name.
      * The onBecomeObserved and onBecomeUnobserved callbacks can be used for resource management.
      */
-    constructor(public name_ = __DEV__ ? "Atom@" + getNextId() : "Atom") {}
+    constructor(public name_ = __DEV__ ? "Atom@" + getNextId() : "Atom") {
+        globalObjectRegistry.add(this)
+    }
 
     // onBecomeObservedListeners
     public onBOL: Set<Lambda> | undefined

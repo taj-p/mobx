@@ -31,6 +31,7 @@ import {
     allowStateChangesStart,
     allowStateChangesEnd
 } from "../internal"
+import { globalObjectRegistry } from "./measure"
 
 export interface IComputedValue<T> {
     get(): T
@@ -132,6 +133,8 @@ export class ComputedValue<T> implements IObservable, IComputedValue<T>, IDeriva
         this.scope_ = options.context
         this.requiresReaction_ = options.requiresReaction
         this.keepAlive_ = !!options.keepAlive
+
+        globalObjectRegistry.add(this)
     }
 
     onBecomeStale_() {

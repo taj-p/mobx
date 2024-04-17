@@ -20,6 +20,7 @@ import {
     trace,
     trackDerivedFunction, GenericAbortSignal
 } from "../internal"
+import { globalObjectRegistry } from "./measure"
 
 /**
  * Reactions are a special kind of derivations. Several things distinguishes them from normal reactive computations
@@ -68,7 +69,9 @@ export class Reaction implements IDerivation, IReactionPublic {
         private onInvalidate_: () => void,
         private errorHandler_?: (error: any, derivation: IDerivation) => void,
         public requiresObservable_?
-    ) {}
+    ) {
+        globalObjectRegistry.add(this)
+    }
 
     onBecomeStale_() {
         this.schedule_()
