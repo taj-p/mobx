@@ -18,7 +18,8 @@ import {
     spyReportStart,
     startBatch,
     trace,
-    trackDerivedFunction, GenericAbortSignal
+    trackDerivedFunction,
+    GenericAbortSignal
 } from "../internal"
 import { globalObjectRegistry } from "./measure"
 
@@ -48,7 +49,7 @@ export interface IReactionPublic {
 
 export interface IReactionDisposer {
     (): void
-    $mobx: Reaction
+    [$mobx]: Reaction
 }
 
 export class Reaction implements IDerivation, IReactionPublic {

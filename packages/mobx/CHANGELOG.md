@@ -1,5 +1,21 @@
 # mobx
 
+## 6.12.2
+
+### Patch Changes
+
+-   [`61abc53f`](https://github.com/mobxjs/mobx/commit/61abc53ff10554d1d5ce3e85466f6beda4d63fa2) [#3852](https://github.com/mobxjs/mobx/pull/3852) Thanks [@mweststrate](https://github.com/mweststrate)! - Patched the release process, forcing release to get everything in pristine state.
+
+*   [`b28e0ebb`](https://github.com/mobxjs/mobx/commit/b28e0ebbfc9aa11293bc185216da92997e497fd3) [#3816](https://github.com/mobxjs/mobx/pull/3816) Thanks [@barroij](https://github.com/barroij)! - Fix `IReactionDisposer` and `IIsObservableObject` interface definition so that Typescript knows the property key `$mobx` is a symbol and not a string
+
+## 6.12.1
+
+### Patch Changes
+
+-   [`620f78c7`](https://github.com/mobxjs/mobx/commit/620f78c74e66bc532a96e28b26fd2d0ed1b67d54) [#3812](https://github.com/mobxjs/mobx/pull/3812) Thanks [@barroij](https://github.com/barroij)! - Prevent `reaction` from heeping a Reference to the OldValue that would prevent GC.
+
+*   [`6111b093`](https://github.com/mobxjs/mobx/commit/6111b0939d0d3c0d46dc325ba6bbd5f740a161d3) [#3833](https://github.com/mobxjs/mobx/pull/3833) Thanks [@realyze](https://github.com/realyze)! - Reduce memory overhead of tracking dependencies
+
 ## 6.12.0
 
 ### Minor Changes

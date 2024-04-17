@@ -1,5 +1,21 @@
 # mobx-react-lite
 
+## 4.0.7
+
+### Patch Changes
+
+-   [`61abc53f`](https://github.com/mobxjs/mobx/commit/61abc53ff10554d1d5ce3e85466f6beda4d63fa2) [#3852](https://github.com/mobxjs/mobx/pull/3852) Thanks [@mweststrate](https://github.com/mweststrate)! - Patched the release process, forcing release to get everything in pristine state.
+
+*   [`7bbb523a`](https://github.com/mobxjs/mobx/commit/7bbb523a7b81229570e0e2a176b989bfc74c4634) [#3842](https://github.com/mobxjs/mobx/pull/3842) Thanks [@r0b1n](https://github.com/r0b1n)! - Prevent warnings when using `mobx-react-lite` with Rollup
+
+## 4.0.6
+
+### Patch Changes
+
+-   [`b970cbb4`](https://github.com/mobxjs/mobx/commit/b970cbb4dd2e43516d37f3f01c956cab3540d4d3) [#3830](https://github.com/mobxjs/mobx/pull/3830) Thanks [@dmitrytavern](https://github.com/dmitrytavern)! - fix #3826: components make two renders because of the different state of the snapshots
+
+*   [`1b8ab199`](https://github.com/mobxjs/mobx/commit/1b8ab199df5e73d384cc40ec2d13915a690c14f3) [#3831](https://github.com/mobxjs/mobx/pull/3831) Thanks [@kitsuned](https://github.com/kitsuned)! - fix: ensure observer component name is only set when configurable
+
 ## 4.0.5
 
 ### Patch Changes
