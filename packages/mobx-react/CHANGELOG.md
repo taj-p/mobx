@@ -1,5 +1,14 @@
 # mobx-react
 
+## 9.1.2
+
+### Patch Changes
+
+-   [`20d21ca4`](https://github.com/mobxjs/mobx/commit/20d21ca4268853c85d203f1270c77c40922a2052) Thanks [@taj-p](https://github.com/taj-p)! - In TypeScript transpilation, disable useDefineForClassFields to reduce memory requirements of classes having optional members.
+
+-   Updated dependencies [[`20d21ca4`](https://github.com/mobxjs/mobx/commit/20d21ca4268853c85d203f1270c77c40922a2052)]:
+    -   mobx-react-lite@4.0.8
+
 ## 9.1.1
 
 ### Patch Changes

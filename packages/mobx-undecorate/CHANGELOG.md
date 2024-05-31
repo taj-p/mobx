@@ -1,5 +1,11 @@
 # mobx-undecorate
 
+## 1.3.1
+
+### Patch Changes
+
+-   [`20d21ca4`](https://github.com/mobxjs/mobx/commit/20d21ca4268853c85d203f1270c77c40922a2052) Thanks [@taj-p](https://github.com/taj-p)! - In TypeScript transpilation, disable useDefineForClassFields to reduce memory requirements of classes having optional members.
+
 ## 1.3.0
 
 ### Minor Changes
