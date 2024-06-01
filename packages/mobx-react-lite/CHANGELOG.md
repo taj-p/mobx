@@ -1,5 +1,11 @@
 # mobx-react-lite
 
+## 4.0.8
+
+### Patch Changes
+
+-   [`20d21ca4`](https://github.com/mobxjs/mobx/commit/20d21ca4268853c85d203f1270c77c40922a2052) Thanks [@taj-p](https://github.com/taj-p)! - Disable `useDefineForClassFields` in `tsconfig.json` to reduce memory footprint and improve performance of class instances with undefined and unused members.
+
 ## 4.0.7
 
 ### Patch Changes

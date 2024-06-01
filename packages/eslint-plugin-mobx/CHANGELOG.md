@@ -1,5 +1,15 @@
 # eslint-plugin-mobx
 
+## 0.0.10
+
+### Patch Changes
+
+-   [`44a5fe07`](https://github.com/mobxjs/mobx/commit/44a5fe07fb95c2ba24d8df19f18b57ee92abb1a9) [#3881](https://github.com/mobxjs/mobx/pull/3881) Thanks [@kade-robertson](https://github.com/kade-robertson)! - Adds an option for the `mobx/exhaustive-make-observable` eslint rule to configure whether fields are annotated with `true` or `false` with the autofixer.
+
+    This option defaults to `true` if not present or an invalid value is received to maintain existing behavior.
+
+*   [`20d21ca4`](https://github.com/mobxjs/mobx/commit/20d21ca4268853c85d203f1270c77c40922a2052) Thanks [@taj-p](https://github.com/taj-p)! - Disable `useDefineForClassFields` in `tsconfig.json` to reduce memory footprint and improve performance of class instances with undefined and unused members.
+
 ## 0.0.9
 
 ### Patch Changes
