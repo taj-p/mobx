@@ -29,7 +29,7 @@ const run = async () => {
         if (env) {
             args.push("--env", env)
         }
-        return execa("tsdx", args, opts)
+        return execa("tsdx", args, { ...opts, env: { ...process.env, BABEL_ENV: "custom" } })
     }
 
     if (isPublish) {
