@@ -1,0 +1,51 @@
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>MobX Example</title>
+        <script src="../../dist/mobx.esm.production.min.js"></script>
+    </head>
+
+    <body>
+        <h1>MobX Testing</h1>
+        <script>
+            const { observable, autorun } = mobx
+
+            const boxes = []
+            // Prevent boxes gc
+            window["boxes"] = boxes
+
+            for (let i = 0; i < 1e6; i++) {
+                const box = observable({
+                    width: 100,
+                    height: 100,
+                    color: Math.random() > 0.5 ? "blue" : "red"
+                })
+                boxes.push(box)
+            }
+
+            autorun(() => {
+                let widths = 0
+                let heights = 0
+                let blues = 0
+                boxes.forEach(box => {
+                    widths += box.width
+                    heights += box.height
+                    colors += box.color === "blue" ? 1 : 0
+                })
+
+                console.log(
+                    `Total width: ${widths}, total height: ${heights}, total blue boxes: ${blues}`
+                )
+            })
+
+            setTimeout(() => {
+                boxes.forEach(box => {
+                    box.width = Math.random() * 100
+                    box.height = Math.random() * 100
+                    box.color = "red"
+                })
+            }, 500)
+        </script>
+    </body>
+</html>
