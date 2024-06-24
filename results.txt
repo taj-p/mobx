@@ -1,0 +1,11 @@
+# Before
+
+real    12m4.184s
+user    14m29.662s
+sys     0m22.071s
+
+# After
+
+real    10m58.253s
+user    13m20.861s
+sys     0m21.357s
