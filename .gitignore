@@ -5,7 +5,6 @@ npm-debug.log
 coverage
 test/babel-tests.js
 test/typescript/typescript-tests.js
-dist/
 **/.idea/*
 !/.idea/icon.png
 !/.idea/vcs.xml
