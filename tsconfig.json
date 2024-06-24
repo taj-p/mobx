@@ -1,25 +1,7 @@
 {
+    "extends": "../../tsconfig.json",
     "compilerOptions": {
-        "target": "es6",
-        "module": "esnext",
-        "moduleResolution": "node",
-        "lib": ["es6"],
-        "downlevelIteration": true,
-        "alwaysStrict": true,
-        "sourceMap": true,
-        "declaration": true,
-        "removeComments": false,
-        "strict": true,
-        "noImplicitReturns": true,
-        "noUnusedLocals": true,
-        "noImplicitAny": false,
-        "noImplicitThis": false,
-        "noEmit": true,
-        "experimentalDecorators": true,
-        // See: https://github.com/mobxjs/mobx/pull/3884
-        "useDefineForClassFields": false,
-        "jsx": "react",
-        "esModuleInterop": true
+        "rootDir": "src"
     },
-    "exclude": ["__tests__"]
+    "include": ["src"]
 }
