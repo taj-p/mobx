@@ -17,6 +17,7 @@ import {
     getDescriptor,
     defineProperty
 } from "../internal"
+import { globalObjectRegistry } from "./measure"
 
 // we don't use globalState for these in order to avoid possible issues with multiple
 // mobx versions
@@ -55,6 +56,7 @@ export function createAction(
         tmpNameDescriptor.value = actionName
         defineProperty(res, "name", tmpNameDescriptor)
     }
+    globalObjectRegistry.add(res)
     return res
 }
 

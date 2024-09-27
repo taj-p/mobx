@@ -21,6 +21,7 @@ import {
     trackDerivedFunction,
     GenericAbortSignal
 } from "../internal"
+import { globalObjectRegistry } from "./measure"
 
 import { getFlag, setFlag } from "../utils/utils"
 
@@ -74,7 +75,9 @@ export class Reaction implements IDerivation, IReactionPublic {
         private onInvalidate_: () => void,
         private errorHandler_?: (error: any, derivation: IDerivation) => void,
         public requiresObservable_?
-    ) {}
+    ) {
+        globalObjectRegistry.add(this)
+    }
 
     get isDisposed() {
         return getFlag(this.flags_, Reaction.isDisposedMask_)
