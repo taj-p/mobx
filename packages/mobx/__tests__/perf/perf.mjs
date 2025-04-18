@@ -1,5 +1,8 @@
-const test = require("tape")
-const log = require("./index.js").logMeasurement
+import * as mobx from "../../dist/mobx.esm.production.min.mjs"
+import test from "tape"
+import { logger } from "./index.mjs"
+
+const { log } = logger
 
 function gc() {
     if (typeof global.gc === "function") global.gc()
@@ -9,7 +12,7 @@ function voidObserver() {
     // nothing, nada, noppes.
 }
 
-module.exports = function runForVersion(version) {
+export function runForVersion(version) {
     /*
 results of this test:
 300/40000 mseconds on netbook (AMD c60 processor, same test is on Intel i7 3770 ~10 times faster)
@@ -18,7 +21,6 @@ results of this test:
 186/113 after remove filter/length call to detect whether depencies are stable. 300 times faster. w00t.
 
 */
-    const mobx = require(`../../dist/mobx.cjs.production.min.js`)
     if (version === "legacy") {
         mobx.configure({ useProxies: false })
     }
@@ -203,11 +205,11 @@ results of this test:
         const ar = observable([0])
         const findLastIndexOfZero = computed(function () {
             aCalc++
-            return ar.findLastIndex(x => x === 0);
+            return ar.findLastIndex(x => x === 0)
         })
         const lastIndexOfZero = computed(function () {
             bCalc++
-            return ar.lastIndexOf(0);
+            return ar.lastIndexOf(0)
         })
         mobx.observe(findLastIndexOfZero, voidObserver, true)
         mobx.observe(lastIndexOfZero, voidObserver, true)
@@ -225,9 +227,7 @@ results of this test:
 
         const end = now()
 
-        log(
-            "Array findLastIndex loop -  Updated in " + (end - start) + " ms."
-        )
+        log("Array findLastIndex loop -  Updated in " + (end - start) + " ms.")
         t.end()
     })
 
