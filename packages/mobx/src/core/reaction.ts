@@ -306,15 +306,11 @@ export type ReactionScheduler = (reaction: ScheduledReaction) => void
  * reaction.schedule_()
  * ```
  *
- * ## Invariants:
+ * ## Note
  *
- * - You must invoke reactions in the order they were scheduled.
  * - Be careful when updating mobx. `runReaction_()` is not a public API and is not guaranteed to be stable.
  * - Be careful about the guarantees that are lost using a custom scheduler (see `runReactionsHelper`) below for
  *   some ideas about how to restore them.
- *
- * ## Note
- *
  * - Deferred reactions still cause cascading changes to dependency graph and reactions. That is,
  *   if a deferred reaction modifies state, it will trigger other reactions that are observing that state.
  */
