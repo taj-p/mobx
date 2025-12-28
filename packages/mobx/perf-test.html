@@ -26,8 +26,17 @@
             h1 {
                 font-size: 1.2rem;
                 font-weight: 500;
-                margin-bottom: 48px;
+                margin-bottom: 16px;
                 color: #888;
+            }
+
+            .subtitle {
+                font-size: 0.85rem;
+                color: #555;
+                margin-bottom: 48px;
+                text-align: center;
+                max-width: 600px;
+                line-height: 1.5;
             }
 
             .grid {
@@ -97,6 +106,10 @@
     </head>
     <body>
         <h1>Click each button — it should turn green instantly</h1>
+        <p class="subtitle">
+            Each reaction observes a chain of 5 computed values (each depending on the previous).
+            With ScheduledReaction, the entire chain is deferred.
+        </p>
 
         <div class="grid">
             <div class="panel">
@@ -116,8 +129,9 @@
         <script>
             const { observable, computed, Reaction, ScheduledReaction, runInAction } = mobx
 
-            const SECONDARY_COUNT = 100
-            const COMPUTED_WORK = 1000000
+            const CHAIN_LENGTH = 5
+            const REACTIONS_PER_CHAIN = 20
+            const COMPUTED_WORK = 5000000
 
             const state1 = observable({ clickCount: 0 })
             const state2 = observable({ clickCount: 0 })
@@ -140,7 +154,7 @@
                             for (const r of toRun) {
                                 r.runReaction_()
                             }
-                        }, 100)
+                        }, 0)
                     }
                 }
             }
@@ -153,6 +167,32 @@
                     result += Math.sqrt(i) * Math.sin(i)
                 }
                 return result
+            }
+
+            // Create a chain of computed values where each depends on the previous
+            function createComputedChain(state) {
+                const chain = []
+
+                // First computed depends on observable
+                chain.push(
+                    computed(() => {
+                        doExpensiveWork(COMPUTED_WORK)
+                        return state.clickCount
+                    })
+                )
+
+                // Each subsequent computed depends on the previous
+                for (let i = 1; i < CHAIN_LENGTH; i++) {
+                    const prev = chain[i - 1]
+                    chain.push(
+                        computed(() => {
+                            doExpensiveWork(COMPUTED_WORK)
+                            return prev.get() * 2
+                        })
+                    )
+                }
+
+                return chain
             }
 
             function setup() {
@@ -169,7 +209,7 @@
                     state2.clickCount = 0
                 })
 
-                // === Regular Reaction ===
+                // === Regular Reaction with chained computeds ===
                 const primary1 = new Reaction("Primary1", function () {
                     this.track(() => {
                         if (state1.clickCount > 0) {
@@ -180,20 +220,19 @@
                 primary1.schedule_()
                 reactions1.push(primary1)
 
-                for (let i = 0; i < SECONDARY_COUNT; i++) {
-                    const c = computed(() => {
-                        doExpensiveWork(COMPUTED_WORK)
-                        return state1.clickCount * (i + 1)
-                    })
+                // Create multiple reaction chains
+                for (let r = 0; r < REACTIONS_PER_CHAIN; r++) {
+                    const chain = createComputedChain(state1)
+                    const finalComputed = chain[chain.length - 1]
 
-                    const r = new Reaction(`Secondary1_${i}`, function () {
-                        this.track(() => void c.get())
+                    const reaction = new Reaction(`ChainReaction1_${r}`, function () {
+                        this.track(() => void finalComputed.get())
                     })
-                    r.schedule_()
-                    reactions1.push(r)
+                    reaction.schedule_()
+                    reactions1.push(reaction)
                 }
 
-                // === ScheduledReaction ===
+                // === ScheduledReaction with chained computeds ===
                 const primary2 = new Reaction("Primary2", function () {
                     this.track(() => {
                         if (state2.clickCount > 0) {
@@ -204,21 +243,20 @@
                 primary2.schedule_()
                 reactions2.push(primary2)
 
-                for (let i = 0; i < SECONDARY_COUNT; i++) {
-                    const c = computed(() => {
-                        doExpensiveWork(COMPUTED_WORK)
-                        return state2.clickCount * (i + 1)
-                    })
+                // Create multiple reaction chains with ScheduledReaction
+                for (let r = 0; r < REACTIONS_PER_CHAIN; r++) {
+                    const chain = createComputedChain(state2)
+                    const finalComputed = chain[chain.length - 1]
 
-                    const r = new ScheduledReaction(
-                        `Secondary2_${i}`,
+                    const reaction = new ScheduledReaction(
+                        `ChainReaction2_${r}`,
                         function () {
-                            this.track(() => void c.get())
+                            this.track(() => void finalComputed.get())
                         },
                         nextTaskScheduler
                     )
-                    r.schedule_()
-                    reactions2.push(r)
+                    reaction.schedule_()
+                    reactions2.push(reaction)
                 }
             }
 
