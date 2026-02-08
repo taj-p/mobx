@@ -13,6 +13,7 @@ import {
     startBatch,
     Lambda
 } from "../internal"
+import { globalObjectRegistry } from "./measure"
 
 import { getFlag, setFlag } from "../utils/utils"
 
@@ -37,7 +38,9 @@ export class Atom implements IAtom {
      * Create a new atom. For debugging purposes it is recommended to give it a name.
      * The onBecomeObserved and onBecomeUnobserved callbacks can be used for resource management.
      */
-    constructor(public name_ = __DEV__ ? "Atom@" + getNextId() : "Atom") {}
+    constructor(public name_ = __DEV__ ? "Atom@" + getNextId() : "Atom") {
+        globalObjectRegistry.add(this)
+    }
 
     // for effective unobserving. BaseAtom has true, for extra optimization, so its onBecomeUnobserved never gets called, because it's not needed
     get isBeingObserved(): boolean {
