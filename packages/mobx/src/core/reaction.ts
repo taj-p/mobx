@@ -112,6 +112,7 @@ export class Reaction implements IDerivation, IReactionPublic {
     }
 
     onBecomeStale_() {
+        unstableReactionStaleHook(this);
         this.schedule_()
     }
 
@@ -347,6 +348,16 @@ const MAX_REACTION_ITERATIONS = 100
 
 let reactionScheduler: (fn: () => void) => void = f => f()
 
+/**
+ * Canva-specific code to enable us to programatically invoke a function `f` before
+ * schedule is called. The only use-case of this currently is to ensure reactions have 
+ * the correct async context.
+ * 
+ * @param f Function to execute before schedule_ is called
+ * @returns 
+ */
+let unstableReactionStaleHook: (r: Reaction) => void = (r: Reaction) => { return }
+
 export function runReactions() {
     // Trampolining, if runReactions are already running, new reactions will be picked up
     if (globalState.inBatch > 0 || globalState.isRunningReactions) {
@@ -388,4 +399,8 @@ export const isScheduledReaction = createInstanceofPredicate("ScheduledReaction"
 export function setReactionScheduler(fn: (f: () => void) => void) {
     const baseScheduler = reactionScheduler
     reactionScheduler = f => fn(() => baseScheduler(f))
+}
+
+export function setReactionStaleHook(fn: (r: Reaction) => void) {
+    unstableReactionStaleHook = fn
 }

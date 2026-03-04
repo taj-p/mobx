@@ -1,4 +1,4 @@
-import { globalState, isolateGlobalState, setReactionScheduler } from "../internal"
+import { globalState, isolateGlobalState, Reaction, setReactionScheduler, setReactionStaleHook } from "../internal"
 
 const NEVER = "never"
 const ALWAYS = "always"
@@ -20,6 +20,7 @@ export function configure(options: {
     disableErrorBoundaries?: boolean
     safeDescriptors?: boolean
     reactionScheduler?: (f: () => void) => void
+    reactionStaleHook?: (r: Reaction) => void
     useProxies?: "always" | "never" | "ifavailable"
 }): void {
     if (options.isolateGlobalState === true) {
@@ -61,5 +62,8 @@ export function configure(options: {
     }
     if (options.reactionScheduler) {
         setReactionScheduler(options.reactionScheduler)
+    }
+    if (options.reactionStaleHook) {
+        setReactionStaleHook(options.reactionStaleHook)
     }
 }
